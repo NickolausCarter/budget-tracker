@@ -51,23 +51,23 @@ function uploadBudget() {
           'Content-Type': 'application/json'
         }
       })
-        .then(response => response.json())
-        .then(serverResponse => {
-          if (serverResponse.message) {
-            throw new Error(serverResponse);
-          }
+      .then(response => response.json())
+      .then(serverResponse => {
+        if (serverResponse.message) {
+          throw new Error(serverResponse);
+        }
+        let messageEl = document.querySelector(".form .error");
+        const transaction = db.transaction(['new_budget'], 'readwrite');
+        const budgetObjectStore = transaction.objectStore('new_budget');
+        // clear all items in your store
+        budgetObjectStore.clear();
 
-          const transaction = db.transaction(['new_budget'], 'readwrite');
-          const budgetObjectStore = transaction.objectStore('new_budget');
-          // clear all items in your store
-          budgetObjectStore.clear();
-
-          alert('Offline entries added to database!');
-        })
-        .catch(err => {
-          // set reference to redirect back here
-          console.log(err);
-        });
+        messageEl.textContent = 'Entries added to database!';
+      })
+      .catch(err => {
+        // set reference to redirect back here
+        console.log(err);
+      });
     }
   };
 }

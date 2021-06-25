@@ -57,6 +57,8 @@ function uploadBudget() {
             throw new Error(serverResponse);
           }
 
+          alert('Offline entries added to database!')
+          
           const transaction = db.transaction(['new_budget'], 'readwrite');
           const budgetObjectStore = transaction.objectStore('new_budget');
           // clear all items in your store

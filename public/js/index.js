@@ -137,6 +137,7 @@ function sendTransaction(isAdding) {
   .catch(err => {
     // fetch failed, so save in indexed db
     saveRecord(transaction);
+    alert('Entry saved and will be added when internet connection is restored.')
 
     // clear form
     nameEl.value = "";
